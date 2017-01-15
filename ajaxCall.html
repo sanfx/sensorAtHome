@@ -1,0 +1,48 @@
+<html>
+<head>
+	<style>
+.table1 {
+    border: 0px solid black;
+    table-layout: auto;
+    valign: middle;
+    text-align: center;
+}
+
+table {
+ border: 1px solid #ccc;
+    table-layout: auto;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+</style>
+ <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+	 <script type="text/javascript" src="ajaxCall_jquery.js"></script>
+<script type="text/javascript" src="http://www.weebly.com/editor/uploads/9/9/4/6/9946022/custom_themes/140317784634516252/files/ajaxCall_jquery.js"></script>
+
+<script type="text/javascript" src="arduinoData.js"></script>
+
+</head>
+<body>
+ 
+ <div id="displaySensorData"></div>
+
+<table id="gaugeTable" border=0, style="width:60%;">
+      <td valign="middle">
+      <table id="headerTable" style='width:100%' class="table1">
+      <tr style="height:100px">
+      <td >Outdoor
+      </td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      </tr><tr style="height:100px">
+      <td>Drawing Room</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      </tr>
+      </table>
+      </td>
+      <td align="right"><div id="gauge_div" style="width: 200px; height: 220px;"></div></td>
+      	<td align="right"><div id="humidity_gauge_div" style="width: 200px; height: 220px;"></div></td>
+    </tr>
+
+</table>
+
+	</body>
+</html>
