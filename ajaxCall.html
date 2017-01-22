@@ -1,5 +1,6 @@
 <html>
 <head>
+  <iframe id="iframe" sandbox="allow-same-origin" style="display: none"></iframe>
 	<style>
 .table1 {
     border: 0px solid black;
@@ -16,15 +17,19 @@ table {
 }
 
 </style>
+
+<script type="text/javascript" src="https://l2.io/ip.js?var=userip">
+document.getElementById("myIpAddr").innerHTML = userip;
+</script>
  <script type='text/javascript' src='https://www.google.com/jsapi'></script>
-	 <script type="text/javascript" src="ajaxCall_jquery.js"></script>
+	 <!--script type="text/javascript" src="ajaxCall_jquery.js"></script-->
 <script type="text/javascript" src="http://www.weebly.com/editor/uploads/9/9/4/6/9946022/custom_themes/140317784634516252/files/ajaxCall_jquery.js"></script>
 
 <script type="text/javascript" src="arduinoData.js"></script>
 
 </head>
 <body>
- 
+ <div id="myIpAddr"></div>
  <div id="displaySensorData"></div>
 
 <table id="gaugeTable" border=0, style="width:60%;">
@@ -44,5 +49,6 @@ table {
 
 </table>
 
+<div id='pot1' style="width: 200px; height: 220px;"></div>
 	</body>
 </html>
