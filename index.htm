@@ -11,6 +11,9 @@
     <link href="css/dataDisplay.css" rel="stylesheet">
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/apeatling/web-pull-to-refresh/lib/genericons/genericons.css">
+    <!-- <link rel="stylesheet" href="base.css"> -->
+    
     <!-- Custom CSS -->
     <style>
     body {
@@ -78,6 +81,43 @@
 
 </head>
   <body>
+    <div id="ptr">
+  <!-- Pull down arrow indicator -->
+  <span class="genericon genericon-next"></span>
+
+  <!-- CSS-based loading indicator -->
+  <div class="loading">
+    <span id="l1"></span>
+    <span id="l2"></span>
+    <span id="l3"></span>
+  </div>
+</div>
+
+<script src="vendor/apeatling/web-pull-to-refresh/lib/hammer.2.0.4.js"></script>
+    <script src="vendor/apeatling/web-pull-to-refresh/lib/wptr.1.1.js"></script>
+    <script>
+    window.onload = function() {
+    WebPullToRefresh.init( {
+      loadingFunction: exampleLoadingFunction
+      } );
+    };
+
+    // Just an example loading function that returns a
+    // promise that WebPullToRefresh can use.
+    var exampleLoadingFunction = function() {
+      return new Promise( function( resolve, reject ) {
+        // Run some async loading code here
+        if ( true /* if the loading worked */ ) {
+          resolve();
+        } else {
+          reject();
+        }
+      } );
+    };
+    </script>
+
+
+<div id="content">
 <header>
   <ul class="breadcrumb">
     <li><a class="breadcrumb-item" href="index.htm">Home</a></li>
@@ -172,7 +212,7 @@
 
 </div>
     <!-- /.container -->
-
+</div>
 </body>
 
 </html>
