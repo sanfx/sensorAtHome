@@ -1,0 +1,28 @@
+
+.block {
+  width: 100%;
+  float: left;
+  margin-right: 6px;
+  background-color: #EEE;
+    display: inline-block;
+    /*zoom: 1;*/
+}
+
+
+.contains {
+    /*width: 100%;*/
+    padding: 4px;
+    margin: 4px;
+}
+.uvRow {
+    text-align: center;
+}
+.nbtn {
+    display: inline-block;
+    /*margin-right: 6px;*/
+    margin-left: 1px;
+    background-color: #EEE;
+}
+.clear {
+    clear: both;
+}

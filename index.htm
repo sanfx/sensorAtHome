@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Sanjeev Kumar">
+    <title>Access Home Online</title>
+    <link href="css/dataDisplay.css" rel="stylesheet">
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+    body {
+
+        font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    }
+
+.breadcrumb {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.navbar-toggle .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 1px;
+}
+@media(max-width:767px){
+  header .breadcrumb {
+    display: none;
+  }
+}
+@media(min-width:768px){
+  header .navbar {
+    display: none;   
+  }
+}
+
+.btn-circle {
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 32px;
+  float: right;
+}
+
+    #container1
+    {
+      width: 100%;
+      margin-bottom:10px
+    }
+
+    </style>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<!-- jQuery Version 1.11.1 -->
+<script  type="text/javascript" src="vendor/jquery/1.11.1/jquery-1.11.1.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+
+<script  type="text/javascript" src="vendor/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="js/dataDisplay.js"></script>
+
+</head>
+  <body>
+<header>
+  <ul class="breadcrumb">
+    <li><a class="breadcrumb-item" href="index.htm">Home</a></li>
+    <li><a class="breadcrumb-item" href="settings.htm">Settings</a></li>
+    <li><a class="breadcrumb-item" href="connected-sites.htm">Sites</a></li>
+  </ul>
+  <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Access Home Online</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="index.htm">Home</a></li>
+          <li><a href="settings.htm">Settings</a></li>
+          <li><a href="connected-sites.htm">Sites</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+<div class="well" id="container1">
+<button  class="btn btn-sm btn-primary" id="togOutBtn">Hide Outdoors</button>
+<fieldset class="outdoor" style="display: none;">
+  <legend id="location"></legend>
+  <table valign="top" cellpadding="0" style="width: 100%;">
+    <tr style="vertical-align:top;">
+      <td style="width: 20%;" >
+         <div id="Outtemp" class="label label-primary">Temperature: <img src="imgs/loader.gif" alt="Loading" border="0"></div><br>
+  <div id="Outhumid" class="label label-default">Humidity: <img src="imgs/loader.gif" alt="Loading" border="0"></div><br>
+  <div id="dewPoint" class="label label-primary">Dew Point: <img src="imgs/loader.gif" alt="Loading" border="0"></div><br>
+  <div id="OutheadIndex" class="label label-default">Feels like<img src="imgs/loader.gif" alt="Loading" border="0"></div>
+      </td>
+  <td>
+
+<div class='contains' style="width:100%;">
+    <div class='uvRow'>
+      <div class="block" style="width:50%;">UV Index:</div>
+      <div id="uvIndex" style="width:20%;" class="block"><img src="imgs/loader.gif" alt="Loading" border="0"></div>
+      <div id="uvIndexColor"  style="width:10%;" class='block'></div>
+    <div class='clear'></div>
+</div>
+      <div id="uvIndexMsg" class='nbtn'></div>
+    </div>
+      </td>
+      <td>
+          <a href="#" onclick="waterPlant1()" class="btn btn-default btn-circle"><i class="fa"><br>Water<br>the<br>plant</i></a>
+      </td>
+    </tr>
+  </table>
+
+
+  <!--button onclick="waterPlant1()" class="hover color-no-focus no-border fa-stack fa-lg">
+    Water the Plant</button-->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+
+  <div id="msg"></div>
+ </fieldset>
+</div>
+<div class="well" id="container">
+<button class="btn btn-sm btn-primary" id="togIndorBtn">Hide Indoors</button>
+ <fieldset class="indoor" style="display: none;">
+  <legend id="inlocation"></legend>
+   <div id="intemp"  class="label label-default">Temperature: <img src="imgs/loader.gif" alt="Loading" border="0"></div><br>
+  <div id="inhumid"  class="label label-primary">Humidity: <img src="imgs/loader.gif" alt="Loading" border="0"></div><br>
+  <div id="indewPoint" class="label label-default">Dew Point: <img src="imgs/loader.gif" alt="Loading" border="0"></div><br>
+  <div id="inheadIndex" class="label label-primary">Feels like <img src="imgs/loader.gif" alt="Loading" border="0"></div>
+ </fieldset>
+</div>
+      <div class="col-lg-12 text-center">
+        <!--h1>A Bootstrap Starter Template</h1>
+        <p class="lead">Complete with pre-defined file paths that you won't have to change!!</p-->
+        <ul class="list-unstyled">
+            <li>Bootstrap v3.3.7</li>
+            <li>jQuery v1.11.1</li>
+       </ul>
+      </div>
+  </div>
+        <!-- /.row -->
+
+</div>
+    <!-- /.container -->
+
+</body>
+
+</html>

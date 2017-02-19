@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#container1
+{
+  margin-bottom:10px
+  }
+</style>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="dataDisplay.js"></script>
+
+</head>
+<body>
+  <button onclick="usingGet()">Water the Plant again</button>
+<!--   <div id="usingForLoop"></div> -->
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+<button class="btn">Water the Plant</button>
+  <div id="container1">
+<button  class="togOutBtn" id="togOutBtn">Hide Outdoors</button>
+<fieldset class="outdoor" style="display: none;">
+  <legend id="location">Loading.</legend>
+  <div id="Outtemp"></div>
+  <div id="Outhumid"></div>
+  <div id="dewPoint"></div>
+  <div id="OutheadIndex"></div>
+  <button onclick="waterPlant1()">Water the Plant</button>
+ </fieldset>
+</div>
+<div id="container2">
+<button class="togIndorBtn">Hide Indoors</button>
+ <fieldset class="indoor" style="display: none;">
+  <legend id="inlocation"></legend>
+   <div id="intemp"></div>
+  <div id="inhumid"></div>
+  <div id="indewPoint"></div>
+  <div id="inheadIndex"></div>
+ </fieldset>
+</div>
+</body>
+</html>
