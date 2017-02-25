@@ -1,19 +1,21 @@
-// var url = 'http://san.gotdns.ch:8095/json';
-var url = 'http://192.168.1.156:8095/json';
 
+
+hostname = window.location.hostname;
+// if I am at home I use ip address to arduino server ip
+hostname = hostname.replace(".3", ".156");
 
 $().ready(function(){
    setInterval(function() {
     $.ajax(
     {
-     url: url,
+     url: 'http://' + hostname + ':8095/json',
      data: {
         format: 'json'
      },
      error: function(jqXHR, textStatus, errorThrown)
      {
        console.log(textStatus + ': ' + errorThrown);
-       url = 'http://san.gotdns.ch:8095/json';
+       url = 'http://' + hostname + ':8095/json';
 
      },
      dataType: 'json',
@@ -162,7 +164,7 @@ function showHideFunc(elementClass, inOut)
 
 function waterPlant1() {
 	var ifrm = document.createElement("iframe");
-    // ifrm.setAttribute("src", "http://san.gotdns.ch:8095/?waterPlant1");
+    ifrm.setAttribute("src", "http://" + hostname + ":8095/?waterPlant1");
     ifrm.setAttribute("id", "iframe");
     ifrm.style.visibility = "false";
     ifrm.style.display = "none";
