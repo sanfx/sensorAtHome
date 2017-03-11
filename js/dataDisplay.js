@@ -1,21 +1,26 @@
+// var url = 'http://san.gotdns.ch:8095/json';
 
+hostName = window.location.hostname;
+if ($('#dbBtn:not(:visible)'))  {
+        //alert("Live button is visible.");
+       }
 
-hostname = window.location.hostname;
-// if I am at home I use ip address to arduino server ip
-hostname = hostname.replace(".3", ".156");
+var url = 'http://' + hostName.replace('.3', '.156');  + ':8095/json';
+
+console.log(hostName + " changed to " +url);
 
 $().ready(function(){
    setInterval(function() {
     $.ajax(
     {
-     url: 'http://' + hostname + ':8095/json',
+     url: url,
      data: {
         format: 'json'
      },
      error: function(jqXHR, textStatus, errorThrown)
      {
        console.log(textStatus + ': ' + errorThrown);
-       url = 'http://' + hostname + ':8095/json';
+       url = 'http://san.gotdns.ch:8095/json';
 
      },
      dataType: 'json',
@@ -46,11 +51,16 @@ $().ready(function(){
        document.getElementById("inhumid").innerHTML = "Humidity: " + tempHumidData[1].humidity + "%" ;
        document.getElementById("indewPoint").innerHTML = "Dew Point: " + tempHumidData[1].dewPoint_in_Cel + "&deg;C/ " + tempHumidData[1].dewPoint_in_Fahr + "&deg;F " ;
        document.getElementById("inheadIndex").innerHTML = "Feels like " + tempHumidData[1].heat_index_in_Cel + "&deg;C/ " +  tempHumidData[1].heat_index__in_Fahr + "&deg;F " ;
+
      },
 
       type: 'GET'
+
    }
    );
+       // document.getElementById('live').style.display = 'none';
+       // document.getElementById("live").style.visibility = 'hidden';
+
 }, 3000);
 // }, 60000);
 });
@@ -164,7 +174,7 @@ function showHideFunc(elementClass, inOut)
 
 function waterPlant1() {
 	var ifrm = document.createElement("iframe");
-    ifrm.setAttribute("src", "http://" + hostname + ":8095/?waterPlant1");
+    // ifrm.setAttribute("src", "http://san.gotdns.ch:8095/?waterPlant1");
     ifrm.setAttribute("id", "iframe");
     ifrm.style.visibility = "false";
     ifrm.style.display = "none";
