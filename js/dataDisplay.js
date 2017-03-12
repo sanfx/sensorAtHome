@@ -8,7 +8,7 @@ if ($('#dbBtn:not(:visible)'))  {
         url = 'http://' + hostName.replace('.3', '.156');  + ':8095/json';
   }
 
-console.log('http://' + hostName + " changed to " + url);
+// console.log('http://' + hostName + " changed to " + url);
 $().ready(function(){
    setInterval(function() {
 
@@ -19,9 +19,10 @@ $().ready(function(){
             url ="http://" + hostName + "/arduino/directEncode.php";
       } else 
       {
-            url = 'http://' + hostName.replace('.3', '.156');  + ':8095/json';
+            url = 'http://' + hostName.replace('.3', '.156')  + ':8095/json';
       }
-      console.log('http://' + hostName + " changed to " + url);
+      console.log("URL: " + url);
+      // console.log('http://' + hostName + " changed to " + url);
       getData();
 
 // }, 60000);
@@ -57,8 +58,8 @@ function displayDataInDiv(data){
        document.getElementById("location").innerHTML = tempHumidData[0].location;
        document.getElementById("Outtemp").innerHTML = "Temperature: " + tempHumidData[0].temperatureInC + "&deg;C/ " + tempHumidData[0].temperatureInF + "&deg;F " ;
        document.getElementById("Outhumid").innerHTML = "Humidity: " + tempHumidData[0].humidity + "%" ;
-       $("dewPoint").show();
-       $("OutheadIndex").show();
+        document.getElementById("dewPoint").style.display = 'block';
+        document.getElementById("OutheadIndex").style.display = 'block';
        document.getElementById("dewPoint").innerHTML = "Dew Point: " + tempHumidData[0].dewPoint_in_Cel + "&deg;C/ " + tempHumidData[0].dewPoint_in_Fahr + "&deg;F " ;
        document.getElementById("OutheadIndex").innerHTML = "Feels like " + tempHumidData[0].heat_index_in_Cel + "&deg;C/ " +  tempHumidData[0].heat_index__in_Fahr + "&deg;F " ;
        getUvIndex(tempHumidData[0].UVSig);
@@ -66,8 +67,8 @@ function displayDataInDiv(data){
        document.getElementById("inlocation").innerHTML = tempHumidData[1].location;
        document.getElementById("intemp").innerHTML = "Temperature: " + tempHumidData[1].temperatureInC + "&deg;C/ " + tempHumidData[1].temperatureInF + "&deg;F " ;
        document.getElementById("inhumid").innerHTML = "Humidity: " + tempHumidData[1].humidity + "%" ;
-       $("indewPoint").show();
-       $("inheadIndex").show();
+        document.getElementById("indewPoint").style.display = 'block';
+        document.getElementById("inheadIndex").style.display = 'block';
        document.getElementById("indewPoint").innerHTML = "Dew Point: " + tempHumidData[1].dewPoint_in_Cel + "&deg;C/ " + tempHumidData[1].dewPoint_in_Fahr + "&deg;F " ;
        document.getElementById("inheadIndex").innerHTML = "Feels like " + tempHumidData[1].heat_index_in_Cel + "&deg;C/ " +  tempHumidData[1].heat_index__in_Fahr + "&deg;F " ;
       }
@@ -104,7 +105,6 @@ function getData(){
      dataType: 'json',
      crossDomain: true,
      success: function(data) {
-      console.log("URL: " + url);
       displayDataInDiv(data);
      },
       type: 'GET'
