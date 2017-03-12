@@ -11,22 +11,18 @@ if ($('#dbBtn:not(:visible)'))  {
 // console.log('http://' + hostName + " changed to " + url);
 $().ready(function(){
    setInterval(function() {
-
-    // if ($('#dbBtn:not(:visible)'))  {
     var liveBtn = document.getElementById("liveBtn");
-    var dbBtn  = document.getElementById("dbBtn");
     if (liveBtn.style.display !== 'none') {
-            url ="http://" + hostName + "/arduino/directEncode.php";
-      } else 
-      {
-            url = 'http://' + hostName.replace('.3', '.156')  + ':8095/json';
-      }
-      console.log("URL: " + url);
-      // console.log('http://' + hostName + " changed to " + url);
+
+      url ="http://" + hostName + "/arduino/directEncode.php";
+    } else {
+      url = 'http://' + hostName.replace('.3', '.156')  + ':8095/json';
+    }
+
       getData();
 
-// }, 60000);
-}, 3000);
+}, 60000);
+// }, 3000);
 });
 
 
@@ -45,11 +41,11 @@ function displayDataInDiv(data){
         document.getElementById("dewPoint").style.display = 'none';
         document.getElementById("OutheadIndex").style.display = 'none';
         getUvIndex(data.millieVolt);
+      document.getElementById("indewPoint").style.display = 'none';
+      document.getElementById("inheadIndex").style.display = 'none';
         document.getElementById("inlocation").innerHTML = "Drawing Room";
         document.getElementById("intemp").innerHTML = "Temperature: " + data.drwngRoom_temperature + "&deg;C";
         document.getElementById("inhumid").innerHTML = "Humidity: " + data.drwngRoom_humidity + "%" ;
-        document.getElementById("indewPoint").style.display = 'none';
-        document.getElementById("inheadIndex").style.display = 'none';
       }
       else { // Live data display
         console.log("coming live from Arduino.")
@@ -58,17 +54,16 @@ function displayDataInDiv(data){
        document.getElementById("location").innerHTML = tempHumidData[0].location;
        document.getElementById("Outtemp").innerHTML = "Temperature: " + tempHumidData[0].temperatureInC + "&deg;C/ " + tempHumidData[0].temperatureInF + "&deg;F " ;
        document.getElementById("Outhumid").innerHTML = "Humidity: " + tempHumidData[0].humidity + "%" ;
-        document.getElementById("dewPoint").style.display = 'block';
-        document.getElementById("OutheadIndex").style.display = 'block';
+      document.getElementById("dewPoint").style.display = 'inline';
+      document.getElementById("OutheadIndex").style.display = 'inline';
        document.getElementById("dewPoint").innerHTML = "Dew Point: " + tempHumidData[0].dewPoint_in_Cel + "&deg;C/ " + tempHumidData[0].dewPoint_in_Fahr + "&deg;F " ;
        document.getElementById("OutheadIndex").innerHTML = "Feels like " + tempHumidData[0].heat_index_in_Cel + "&deg;C/ " +  tempHumidData[0].heat_index__in_Fahr + "&deg;F " ;
        getUvIndex(tempHumidData[0].UVSig);
-       // renderHTML(tempHumidData);
        document.getElementById("inlocation").innerHTML = tempHumidData[1].location;
        document.getElementById("intemp").innerHTML = "Temperature: " + tempHumidData[1].temperatureInC + "&deg;C/ " + tempHumidData[1].temperatureInF + "&deg;F " ;
+      document.getElementById("indewPoint").style.display = 'inline';
+      document.getElementById("inheadIndex").style.display = 'inline';
        document.getElementById("inhumid").innerHTML = "Humidity: " + tempHumidData[1].humidity + "%" ;
-        document.getElementById("indewPoint").style.display = 'block';
-        document.getElementById("inheadIndex").style.display = 'block';
        document.getElementById("indewPoint").innerHTML = "Dew Point: " + tempHumidData[1].dewPoint_in_Cel + "&deg;C/ " + tempHumidData[1].dewPoint_in_Fahr + "&deg;F " ;
        document.getElementById("inheadIndex").innerHTML = "Feels like " + tempHumidData[1].heat_index_in_Cel + "&deg;C/ " +  tempHumidData[1].heat_index__in_Fahr + "&deg;F " ;
       }
@@ -79,13 +74,12 @@ function showHideLiveDbBtns(){
   var liveBtn = document.getElementById("liveBtn");
   var dbBtn  = document.getElementById("dbBtn");
     if (liveBtn.style.display !== 'none') {
-        dbBtn.style.display = 'block';
-        liveBtn.style.display = 'none';
+      dbBtn.style.display = 'inline';
+      liveBtn.style.display = 'none';
     } else
     {
-
-        liveBtn.style.display = 'block';
-        dbBtn.style.display = 'none';
+      liveBtn.style.display = 'inline';
+      dbBtn.style.display = 'none';
     }
     getData();
 }

@@ -28,6 +28,13 @@
   border-radius: 0;
 }
 
+.right {
+    position: absolute;
+    right: 80px;
+    /*width: 300px;*/
+
+  }
+
 .navbar-toggle .icon-bar {
     display: block;
     width: 22px;
@@ -120,8 +127,8 @@
 
 <div class="well" id="container1">
 <button class="btn btn-sm btn-primary" id="togOutBtn">Hide Outdoors</button>
-<button type="button" id="liveBtn" onclick="showHideLiveDbBtns()" class="btn btn-sm  btn-success btn-primary">Go Live</button>
-<button type="button" id="dbBtn" onclick="showHideLiveDbBtns()" class="btn btn-sm  btn-default" style="display:none;">Database</button>
+<button type="button" id="liveBtn" onclick="showHideLiveDbBtns()" class="btn btn-sm  btn-success btn-primary right">Go Live</button>
+<button type="button" id="dbBtn" onclick="showHideLiveDbBtns()" class="btn btn-sm  btn-default right" style="display:none;">Database</button>
 <fieldset class="outdoor" style="display: none;">
   <legend id="location"></legend>
   <table valign="top" cellpadding="0" style="width: 100%;">
