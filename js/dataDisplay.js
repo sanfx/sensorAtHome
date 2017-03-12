@@ -2,16 +2,96 @@
 
 hostName = window.location.hostname;
 if ($('#dbBtn:not(:visible)'))  {
-        //alert("Live button is visible.");
-       }
+        url ="http://" + hostName + "/arduino/directEncode.php";
+  } else 
+  {
+        url = 'http://' + hostName.replace('.3', '.156');  + ':8095/json';
+  }
 
-var url = 'http://' + hostName.replace('.3', '.156');  + ':8095/json';
-
-console.log(hostName + " changed to " +url);
-
+console.log('http://' + hostName + " changed to " + url);
 $().ready(function(){
    setInterval(function() {
-    $.ajax(
+
+    // if ($('#dbBtn:not(:visible)'))  {
+    var liveBtn = document.getElementById("liveBtn");
+    var dbBtn  = document.getElementById("dbBtn");
+    if (liveBtn.style.display !== 'none') {
+            url ="http://" + hostName + "/arduino/directEncode.php";
+      } else 
+      {
+            url = 'http://' + hostName.replace('.3', '.156');  + ':8095/json';
+      }
+      console.log('http://' + hostName + " changed to " + url);
+      getData();
+
+// }, 60000);
+}, 3000);
+});
+
+
+// call directly without waiting a second.
+getData();
+
+
+function displayDataInDiv(data){
+  var liveBtn = document.getElementById("liveBtn");
+  var dbBtn  = document.getElementById("dbBtn");
+    if (liveBtn.style.display !== 'none') {
+        console.log("coming from database");
+        document.getElementById("location").innerHTML = "Outdoor";
+        document.getElementById("Outtemp").innerHTML = "Temperature: " + data.out_temperature + "&deg;C";
+        document.getElementById("Outhumid").innerHTML = "Humidity: " + data.out_humidity + "%" ;
+        document.getElementById("dewPoint").style.display = 'none';
+        document.getElementById("OutheadIndex").style.display = 'none';
+        getUvIndex(data.millieVolt);
+        document.getElementById("inlocation").innerHTML = "Drawing Room";
+        document.getElementById("intemp").innerHTML = "Temperature: " + data.drwngRoom_temperature + "&deg;C";
+        document.getElementById("inhumid").innerHTML = "Humidity: " + data.drwngRoom_humidity + "%" ;
+        document.getElementById("indewPoint").style.display = 'none';
+        document.getElementById("inheadIndex").style.display = 'none';
+      }
+      else { // Live data display
+        console.log("coming live from Arduino.")
+        var tempHumidData = data.arduino;
+
+       document.getElementById("location").innerHTML = tempHumidData[0].location;
+       document.getElementById("Outtemp").innerHTML = "Temperature: " + tempHumidData[0].temperatureInC + "&deg;C/ " + tempHumidData[0].temperatureInF + "&deg;F " ;
+       document.getElementById("Outhumid").innerHTML = "Humidity: " + tempHumidData[0].humidity + "%" ;
+       $("dewPoint").show();
+       $("OutheadIndex").show();
+       document.getElementById("dewPoint").innerHTML = "Dew Point: " + tempHumidData[0].dewPoint_in_Cel + "&deg;C/ " + tempHumidData[0].dewPoint_in_Fahr + "&deg;F " ;
+       document.getElementById("OutheadIndex").innerHTML = "Feels like " + tempHumidData[0].heat_index_in_Cel + "&deg;C/ " +  tempHumidData[0].heat_index__in_Fahr + "&deg;F " ;
+       getUvIndex(tempHumidData[0].UVSig);
+       // renderHTML(tempHumidData);
+       document.getElementById("inlocation").innerHTML = tempHumidData[1].location;
+       document.getElementById("intemp").innerHTML = "Temperature: " + tempHumidData[1].temperatureInC + "&deg;C/ " + tempHumidData[1].temperatureInF + "&deg;F " ;
+       document.getElementById("inhumid").innerHTML = "Humidity: " + tempHumidData[1].humidity + "%" ;
+       $("indewPoint").show();
+       $("inheadIndex").show();
+       document.getElementById("indewPoint").innerHTML = "Dew Point: " + tempHumidData[1].dewPoint_in_Cel + "&deg;C/ " + tempHumidData[1].dewPoint_in_Fahr + "&deg;F " ;
+       document.getElementById("inheadIndex").innerHTML = "Feels like " + tempHumidData[1].heat_index_in_Cel + "&deg;C/ " +  tempHumidData[1].heat_index__in_Fahr + "&deg;F " ;
+      }
+}
+
+
+function showHideLiveDbBtns(){
+  var liveBtn = document.getElementById("liveBtn");
+  var dbBtn  = document.getElementById("dbBtn");
+    if (liveBtn.style.display !== 'none') {
+        dbBtn.style.display = 'block';
+        liveBtn.style.display = 'none';
+    } else
+    {
+
+        liveBtn.style.display = 'block';
+        dbBtn.style.display = 'none';
+    }
+    getData();
+}
+
+
+function getData(){
+  $.ajax(
     {
      url: url,
      data: {
@@ -20,65 +100,32 @@ $().ready(function(){
      error: function(jqXHR, textStatus, errorThrown)
      {
        console.log(textStatus + ': ' + errorThrown);
-       url = 'http://san.gotdns.ch:8095/json';
-
      },
      dataType: 'json',
      crossDomain: true,
-     success: function(sensorData) {
-       var tempHumidData = sensorData.arduino;
-       // var htmlString = "";
-       // for (i = 0; i < tempHumidData.length; i++){
-       // 	htmlString = "<div id='container"+i+"'>";
-       // 	htmlString += "<button  class='togOutBtn' id='togOutBtn'>Hide Outdoors</button>"
-       // 	htmlString += "<fieldset class='outdoor' style='display: none;'>";
-       // 	htmlString += "<legend id='location'> "+ tempHumidData[i].location+"</legend>";
-       // 	htmlString += "Temperature: " + tempHumidData[i].temperatureInC + "&deg;C/ " + tempHumidData[i].temperatureInF + "&deg;F " ;
-       // 	htmlString += "</fieldset></div>";
-       // }
-       // console.log(htmlString);
-       // document.getElementById("usingForLoop").innerHTML = htmlString;
-
-       document.getElementById("location").innerHTML = tempHumidData[0].location;
-       document.getElementById("Outtemp").innerHTML = "Temperature: " + tempHumidData[0].temperatureInC + "&deg;C/ " + tempHumidData[0].temperatureInF + "&deg;F " ;
-       document.getElementById("Outhumid").innerHTML = "Humidity: " + tempHumidData[0].humidity + "%" ;
-       document.getElementById("dewPoint").innerHTML = "Dew Point: " + tempHumidData[0].dewPoint_in_Cel + "&deg;C/ " + tempHumidData[0].dewPoint_in_Fahr + "&deg;F " ;
-       document.getElementById("OutheadIndex").innerHTML = "Feels like " + tempHumidData[0].heat_index_in_Cel + "&deg;C/ " +  tempHumidData[0].heat_index__in_Fahr + "&deg;F " ;
-       getUvIndex(tempHumidData[0].UVSig);
-       // renderHTML(tempHumidData);
-       document.getElementById("inlocation").innerHTML = tempHumidData[1].location;
-       document.getElementById("intemp").innerHTML = "Temperature: " + tempHumidData[1].temperatureInC + "&deg;C/ " + tempHumidData[1].temperatureInF + "&deg;F " ;
-       document.getElementById("inhumid").innerHTML = "Humidity: " + tempHumidData[1].humidity + "%" ;
-       document.getElementById("indewPoint").innerHTML = "Dew Point: " + tempHumidData[1].dewPoint_in_Cel + "&deg;C/ " + tempHumidData[1].dewPoint_in_Fahr + "&deg;F " ;
-       document.getElementById("inheadIndex").innerHTML = "Feels like " + tempHumidData[1].heat_index_in_Cel + "&deg;C/ " +  tempHumidData[1].heat_index__in_Fahr + "&deg;F " ;
-
+     success: function(data) {
+      console.log("URL: " + url);
+      displayDataInDiv(data);
      },
-
       type: 'GET'
-
    }
    );
-       // document.getElementById('live').style.display = 'none';
-       // document.getElementById("live").style.visibility = 'hidden';
 
-}, 3000);
-// }, 60000);
-});
+}
 
 function renderHTML(data)
 {
   if (data){
 
-   var sensorDataContainer = document.getElementById("displaySensorData");
+   var dataContainer = document.getElementById("displaySensorData");
    var htmlString = "<table id='headTable' style='width:100%'><tr><th>Location</th><th>Temperature</th><th>Humidity</th></tr>";
    for (i = 0; i < data.length; i++){
       htmlString += "<tr align='center'><td>"+ data[i].location + "</td><td>" + data[i].temperatureInC + "&deg;C/ " + data[i].temperatureInF + "&deg;F </td> <td> " + data[i].humidity + "%</td></tr>";
    }
    htmlString += "</table>"
-   sensorDataContainer.innerHTML = htmlString;
+   dataContainer.innerHTML = htmlString;
    }
 }
-
 
 function getUvIndex(miliVolts){
   document.getElementById("uvIndexColor").innerHTML = "&nbsp;";
@@ -174,7 +221,7 @@ function showHideFunc(elementClass, inOut)
 
 function waterPlant1() {
 	var ifrm = document.createElement("iframe");
-    // ifrm.setAttribute("src", "http://san.gotdns.ch:8095/?waterPlant1");
+    ifrm.setAttribute("src", "http://"+ hostName.replace("192.168.1.3", "192.168.1.156") + ":8095/?waterPlant1");
     ifrm.setAttribute("id", "iframe");
     ifrm.style.visibility = "false";
     ifrm.style.display = "none";

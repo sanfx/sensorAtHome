@@ -119,10 +119,9 @@
         <div class="row">
 
 <div class="well" id="container1">
-
 <button class="btn btn-sm btn-primary" id="togOutBtn">Hide Outdoors</button>
-<button type="button" id="liveBtn" class="btn btn-sm  btn-success btn-primary">Go Live</button>
-<button type="button" id="dbBtn" class="btn btn-sm  btn-default" style="display:none;">Database</button>
+<button type="button" id="liveBtn" onclick="showHideLiveDbBtns()" class="btn btn-sm  btn-success btn-primary">Go Live</button>
+<button type="button" id="dbBtn" onclick="showHideLiveDbBtns()" class="btn btn-sm  btn-default" style="display:none;">Database</button>
 <fieldset class="outdoor" style="display: none;">
   <legend id="location"></legend>
   <table valign="top" cellpadding="0" style="width: 100%;">
@@ -130,8 +129,8 @@
       <td style="width: 20%;" >
          <div id="Outtemp" class="label label-primary">Temperature: <img src="imgs/loader.gif" alt="Loading" border="0"></div><br>
   <div id="Outhumid" class="label label-default">Humidity: <img src="imgs/loader.gif" alt="Loading" border="0"></div><br>
-  <div id="dewPoint" class="label label-primary">Dew Point: <img src="imgs/loader.gif" alt="Loading" border="0"></div><br>
-  <div id="OutheadIndex" class="label label-default">Feels like<img src="imgs/loader.gif" alt="Loading" border="0"></div>
+  <div id="dewPoint" class="label label-primary" style="display:none;">Dew Point: <img src="imgs/loader.gif" alt="Loading" border="0"></div><br>
+  <div id="OutheadIndex" class="label label-default" style="display:none;">Feels like<img src="imgs/loader.gif" alt="Loading" border="0"></div>
       </td>
   <td>
 
@@ -146,16 +145,12 @@
     </div>
       </td>
       <td>
-
-
           <a href="#" onclick="waterPlant1()" class="btn btn-default btn-circle"><i class="fa"><br>Water<br>the<br>plant</i></a>
       </td>
     </tr>
   </table>
 
 
-  <!--button onclick="waterPlant1()" class="hover color-no-focus no-border fa-stack fa-lg">
-    Water the Plant</button-->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 
   <div id="msg"></div>
@@ -167,8 +162,8 @@
   <legend id="inlocation"></legend>
    <div id="intemp"  class="label label-default">Temperature: <img src="imgs/loader.gif" alt="Loading" border="0"></div><br>
   <div id="inhumid"  class="label label-primary">Humidity: <img src="imgs/loader.gif" alt="Loading" border="0"></div><br>
-  <div id="indewPoint" class="label label-default">Dew Point: <img src="imgs/loader.gif" alt="Loading" border="0"></div><br>
-  <div id="inheadIndex" class="label label-primary">Feels like <img src="imgs/loader.gif" alt="Loading" border="0"></div>
+  <div id="indewPoint" class="label label-default" style="display:none;">Dew Point: <img src="imgs/loader.gif" alt="Loading" border="0"></div><br>
+  <div id="inheadIndex" class="label label-primary" style="display:none;">Feels like <img src="imgs/loader.gif" alt="Loading" border="0"></div>
  </fieldset>
 </div>
       <div class="col-lg-12 text-center">
