@@ -8,18 +8,23 @@ if ($('#dbBtn:not(:visible)'))  {
         url = 'http://' + hostName.replace('.3', '.156');  + ':8095/json';
   }
 
-// console.log('http://' + hostName + " changed to " + url);
+function urlSwitcher(){
+  var liveBtn = document.getElementById("liveBtn");
+  if (liveBtn.style.display !== 'none') {
+
+  url ="http://" + hostName + "/arduino/directEncode.php";
+
+  } else {
+
+  url = 'http://' + hostName.replace('.3', '.156')  + ':8095/json';
+    
+  }
+}
+
 $().ready(function(){
    setInterval(function() {
-    var liveBtn = document.getElementById("liveBtn");
-    if (liveBtn.style.display !== 'none') {
-
-      url ="http://" + hostName + "/arduino/directEncode.php";
-    } else {
-      url = 'http://' + hostName.replace('.3', '.156')  + ':8095/json';
-    }
-
-      getData();
+    urlSwitcher();
+    getData();
 
 }, 60000);
 // }, 3000);
@@ -31,10 +36,12 @@ getData();
 
 
 function displayDataInDiv(data){
+  urlSwitcher();
+  getData();
   var liveBtn = document.getElementById("liveBtn");
   var dbBtn  = document.getElementById("dbBtn");
     if (liveBtn.style.display !== 'none') {
-        console.log("coming from database");
+      if (typeof data != 'undefined') {
         document.getElementById("location").innerHTML = "Outdoor";
         document.getElementById("Outtemp").innerHTML = "Temperature: " + data.out_temperature + "&deg;C";
         document.getElementById("Outhumid").innerHTML = "Humidity: " + data.out_humidity + "%" ;
@@ -47,25 +54,28 @@ function displayDataInDiv(data){
         document.getElementById("intemp").innerHTML = "Temperature: " + data.drwngRoom_temperature + "&deg;C";
         document.getElementById("inhumid").innerHTML = "Humidity: " + data.drwngRoom_humidity + "%" ;
       }
+      }
       else { // Live data display
-        console.log("coming live from Arduino.")
-        var tempHumidData = data.arduino;
 
-       document.getElementById("location").innerHTML = tempHumidData[0].location;
-       document.getElementById("Outtemp").innerHTML = "Temperature: " + tempHumidData[0].temperatureInC + "&deg;C/ " + tempHumidData[0].temperatureInF + "&deg;F " ;
-       document.getElementById("Outhumid").innerHTML = "Humidity: " + tempHumidData[0].humidity + "%" ;
-      document.getElementById("dewPoint").style.display = 'inline';
-      document.getElementById("OutheadIndex").style.display = 'inline';
-       document.getElementById("dewPoint").innerHTML = "Dew Point: " + tempHumidData[0].dewPoint_in_Cel + "&deg;C/ " + tempHumidData[0].dewPoint_in_Fahr + "&deg;F " ;
-       document.getElementById("OutheadIndex").innerHTML = "Feels like " + tempHumidData[0].heat_index_in_Cel + "&deg;C/ " +  tempHumidData[0].heat_index__in_Fahr + "&deg;F " ;
-       getUvIndex(tempHumidData[0].UVSig);
-       document.getElementById("inlocation").innerHTML = tempHumidData[1].location;
-       document.getElementById("intemp").innerHTML = "Temperature: " + tempHumidData[1].temperatureInC + "&deg;C/ " + tempHumidData[1].temperatureInF + "&deg;F " ;
-      document.getElementById("indewPoint").style.display = 'inline';
-      document.getElementById("inheadIndex").style.display = 'inline';
-       document.getElementById("inhumid").innerHTML = "Humidity: " + tempHumidData[1].humidity + "%" ;
-       document.getElementById("indewPoint").innerHTML = "Dew Point: " + tempHumidData[1].dewPoint_in_Cel + "&deg;C/ " + tempHumidData[1].dewPoint_in_Fahr + "&deg;F " ;
-       document.getElementById("inheadIndex").innerHTML = "Feels like " + tempHumidData[1].heat_index_in_Cel + "&deg;C/ " +  tempHumidData[1].heat_index__in_Fahr + "&deg;F " ;
+          var tempHumidData = data.arduino;
+          if (typeof tempHumidData != 'undefined'){
+
+          document.getElementById("location").innerHTML = tempHumidData[0].location;
+          document.getElementById("Outtemp").innerHTML = "Temperature: " + tempHumidData[0].temperatureInC + "&deg;C/ " + tempHumidData[0].temperatureInF + "&deg;F " ;
+          document.getElementById("Outhumid").innerHTML = "Humidity: " + tempHumidData[0].humidity + "%" ;
+          document.getElementById("dewPoint").style.display = 'inline';
+          document.getElementById("OutheadIndex").style.display = 'inline';
+          document.getElementById("dewPoint").innerHTML = "Dew Point: " + tempHumidData[0].dewPoint_in_Cel + "&deg;C/ " + tempHumidData[0].dewPoint_in_Fahr + "&deg;F " ;
+          document.getElementById("OutheadIndex").innerHTML = "Feels like " + tempHumidData[0].heat_index_in_Cel + "&deg;C/ " +  tempHumidData[0].heat_index__in_Fahr + "&deg;F " ;
+          getUvIndex(tempHumidData[0].UVSig);
+          document.getElementById("inlocation").innerHTML = tempHumidData[1].location;
+          document.getElementById("intemp").innerHTML = "Temperature: " + tempHumidData[1].temperatureInC + "&deg;C/ " + tempHumidData[1].temperatureInF + "&deg;F " ;
+          document.getElementById("indewPoint").style.display = 'inline';
+          document.getElementById("inheadIndex").style.display = 'inline';
+          document.getElementById("inhumid").innerHTML = "Humidity: " + tempHumidData[1].humidity + "%" ;
+          document.getElementById("indewPoint").innerHTML = "Dew Point: " + tempHumidData[1].dewPoint_in_Cel + "&deg;C/ " + tempHumidData[1].dewPoint_in_Fahr + "&deg;F " ;
+          document.getElementById("inheadIndex").innerHTML = "Feels like " + tempHumidData[1].heat_index_in_Cel + "&deg;C/ " +  tempHumidData[1].heat_index__in_Fahr + "&deg;F " ;
+          }
       }
 }
 
